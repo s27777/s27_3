@@ -2,12 +2,12 @@
 public abstract class Kontener
 {
     
-    protected int MasaNetto { get; }
-    protected int MasaBrutto { get; }
-    protected int Wysokosc { get; }
-    protected int Glebokosc { get; }
-    protected string NumerSeryjny { get; }
-    protected int Ladownosc { get; }
+    protected int MasaNetto { get; set; }
+    protected int MasaBrutto { get; set; }
+    protected int Wysokosc { get; set; }
+    protected int Glebokosc { get; set; }
+    protected string NumerSeryjny { get; set; }
+    protected int Ladownosc { get; set; }
 
     protected Kontener(int masaNetto, int masaBrutto, int wysokosc, int glebokosc, string numerSeryjny, int ladownosc)
     {
