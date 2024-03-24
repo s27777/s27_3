@@ -1,24 +1,83 @@
-﻿namespace ConsoleApp1;
+﻿using System.ComponentModel;
+
+namespace ConsoleApp1;
 
 public class KontenerNaPlyny : Kontener, IHazardNotifier
 {
-    public KontenerNaPlyny(int masaNetto, int masaBrutto, int wysokosc, int glebokosc, string numerSeryjny, int ladownosc) : 
-        base(masaNetto, masaBrutto, wysokosc, glebokosc, numerSeryjny, ladownosc)
+    protected int MasaNetto { get; set; }
+    protected int MasaWlasna { get; set; }
+    protected int MasaBrutto { get; set; }
+    protected int Wysokosc { get; set; }
+    protected int Glebokosc { get; set; }
+    protected string NumerSeryjny { get; set; }
+    protected int Ladownosc { get; set; }
+    protected bool Niebezpieczny { get; set; }
+    private static int numberIterator = 0;
+    public KontenerNaPlyny(int masawlasna, int wysokosc, int glebokosc, int ladownosc, bool niebezbieczny) : 
+        base(masawlasna, wysokosc, glebokosc, ladownosc)
     {
-        
+        MasaNetto = 0;
+        MasaWlasna = masawlasna;
+        MasaBrutto = MasaNetto + MasaWlasna;
+        Wysokosc = wysokosc;
+        Glebokosc = glebokosc;
+        NumerSeryjny = generateSerialNumber();
+        Ladownosc = ladownosc;
+        Niebezpieczny = niebezbieczny;
     }
 
-    public override void Oproznienie()
+    public override string generateSerialNumber()
     {
-        base.Oproznienie();
+        string nr = "";
+        numberIterator++;
+        nr = "KON-L-" + numberIterator;
+        return nr;
+    }
+
+    public string getSerial()
+    {
+        return this.NumerSeryjny;
+    }
+
+    public void oproznienie()
+    {
+        base.oproznienie();
+    }
+
+    public void zaladowanie(int masaLadunku, IHazardNotifier ihn)
+    {
+        //base.zaladowanie(masa);
+        int maxLoad;
+        if (Niebezpieczny == true) { maxLoad = (int)(Ladownosc * 0.5); }
+        else { maxLoad = (int)(Ladownosc * 0.9); }
+
+        if (masaLadunku > Ladownosc)
+        {
+            throw new OverfillException("OverfillException");
+        }
+        else if (masaLadunku > maxLoad)
+        {
+            ihn.Powiadomienie("IHazardNotifier: sytuacja niebezpieczna w kontenerze " + NumerSeryjny);
+        }
+
+        MasaNetto += masaLadunku;
+        MasaBrutto += masaLadunku;
+        Console.WriteLine("Zaladowano kontener " + NumerSeryjny + " ladunkiem " + masaLadunku);
+        Console.WriteLine("Aktualna masa brutto: " + MasaBrutto);
+    }
+    
+    public override string ToString()
+    {
+        return this.NumerSeryjny;
     }
 }
 
 public interface IHazardNotifier
 {
-    void Powiadomienie()
+    void Powiadomienie(string message)
     {
-        Console.WriteLine();
+        Console.WriteLine(message);
+        //throw new OverfillException();
     }
     
 }
