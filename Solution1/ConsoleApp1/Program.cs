@@ -12,10 +12,15 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            
+            // MAKSYMALNA LICZBA, MAKSYMALNA WAGA KONTENEROW W KONTENEROWCU
+            // PRZENIESIENIE KONTENERA MIĘDZY DWOMA STATKAMI
+            // WYSWIETLENIE INFORMACJI
             Kontener k = new KontenerNaPlyny(1, 1, 1, 1, false);
             Kontener c = new KontenerNaPlyny(1, 1, 1, 1, false);
             Kontener gass = new KontenerNaGaz(700, 1, 1, 5000, 3);
             Kontener gaz = new KontenerNaGaz(800, 1, 1, 5000, 3);
+            Kontener h = new KontenerChlodniczy(900, 1, 1, 7000, "Fish", 2);
 
             Kontenerowiec KK = new Kontenerowiec(100, 100);
             
@@ -34,6 +39,13 @@ namespace ConsoleApp1
             }
             
             KK.zaladujKontener(gaz);
+            
+            KK.usunKontener("KON-L-4");
+            Console.WriteLine("deleted???");
+            foreach (Kontener el in KK.ListaKontenerow)
+            {
+                Console.WriteLine(el);
+            }
         }
     }
 }
