@@ -43,6 +43,18 @@ public class KontenerNaPlyny : Kontener, IHazardNotifier
     {
         base.oproznienie();
     }
+    
+    public int getBrutto()
+    {
+        return base.getBrutto();
+    }
+    
+    public void info()
+    {
+        Console.WriteLine("Dane kontenera " + NumerSeryjny + ":");
+        Console.WriteLine("Masa ładunku (netto): " + MasaNetto);
+        Console.WriteLine("Masa brutto: " + MasaBrutto);
+    }
 
     public void zaladowanie(int masaLadunku, IHazardNotifier ihn)
     {

@@ -52,6 +52,18 @@ public class KontenerNaGaz : Kontener, IHazardNotifier
     {
         base.zaladowanie(masa);
     }
+    
+    public void info()
+    {
+        Console.WriteLine("Dane kontenera " + NumerSeryjny + ":");
+        Console.WriteLine("Masa ładunku (netto): " + MasaNetto);
+        Console.WriteLine("Masa brutto: " + MasaBrutto);
+    }
+    
+    public int getBrutto()
+    {
+        return base.getBrutto();
+    }
 
     public override string ToString()
     {

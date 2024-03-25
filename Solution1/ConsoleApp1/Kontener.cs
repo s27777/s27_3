@@ -52,10 +52,22 @@ public abstract class Kontener
         return this.NumerSeryjny;
     }
 
+    public virtual int getBrutto()
+    {
+        return this.MasaBrutto;
+    }
+
     Exception OverfillException()
     {
         String lkjh = "aberty";
         return new Exception();
+    }
+
+    public void info()
+    {
+        Console.WriteLine("Dane kontenera " + NumerSeryjny + ":");
+        Console.WriteLine("Masa ładunku (netto): " + MasaNetto);
+        Console.WriteLine("Masa brutto: " + MasaBrutto);
     }
 
     public override string ToString()

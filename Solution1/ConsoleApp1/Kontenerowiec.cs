@@ -8,6 +8,7 @@ public class Kontenerowiec
     protected int MaxKontenery { get; set; }
     protected string NumerSeryjny { get; set; }
     protected int LiczbaKontenerow { get; set; }
+    protected int MasaKontenerow { get; set; }
     private static int numberIterator = 0;
 
     public Kontenerowiec(int maxPredkosc, int maxKontenery)
@@ -15,6 +16,7 @@ public class Kontenerowiec
         MaxPredkosc = maxPredkosc;
         MaxKontenery = maxKontenery;
         LiczbaKontenerow = 0;
+        MasaKontenerow = 0;
         numberIterator++;
         NumerSeryjny = generateSerialNumber();
     }
@@ -23,6 +25,7 @@ public class Kontenerowiec
     {
         ListaKontenerow.Add(k);
         LiczbaKontenerow++;
+        MasaKontenerow += k.getBrutto();
         Console.WriteLine("Zaladowano kontener " + k + " na statek " + this);
     }
 
@@ -35,6 +38,7 @@ public class Kontenerowiec
             {
                 ListaKontenerow.Remove(el);
                 Console.WriteLine("Usunieto kontener " + el + " ze statku " + this);
+                MasaKontenerow += el.getBrutto();
                 LiczbaKontenerow--;
             }
         }
@@ -51,6 +55,7 @@ public class Kontenerowiec
         {
             ListaKontenerow.Add(k);
             LiczbaKontenerow++;
+            MasaKontenerow += k.getBrutto();
         }
     }
 
@@ -60,7 +65,9 @@ public class Kontenerowiec
         {
             if (ListaKontenerow[i].getSerial().Equals(id))
             {
+                MasaKontenerow -= ListaKontenerow[i].getBrutto();
                 ListaKontenerow[i] = kk;
+                MasaKontenerow += kk.getBrutto();
             }
         }
     }
